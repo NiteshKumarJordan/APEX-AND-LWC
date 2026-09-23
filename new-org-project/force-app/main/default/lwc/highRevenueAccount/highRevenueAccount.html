@@ -1,0 +1,56 @@
+<!-- 
+<template>
+    <lightning-card title="Top 5 High Revenue Accounts" icon-name="standard:account">
+        
+        This is a correct comment inside a commented block. 
+        Just do not use the raw comment symbols inside here.
+        
+        <lightning-datatable
+            key-field="Id"
+            data={accounts}
+            columns={columns}
+            hide-checkbox-column>
+        </lightning-datatable>
+    </lightning-card>
+</template>
+-->
+
+
+
+
+
+
+<template>
+    <lightning-card title="Top 5 High Revenue Accounts" icon-name="standard:account">
+        <div class="slds-var-m-around_medium">
+            
+            <!-- Conditional rendering: Shows only if accounts data exists -->
+            <template if:true={accounts}>
+                <ul class="slds-has-dividers_bottom-space">
+                    <template for:each={accounts} for:item="acc">
+                        <li key={acc.Id} class="slds-item slds-var-p-vertical_small">
+                            <div class="slds-grid slds-grid_align-spread">
+                                <strong>{acc.Name}</strong>
+                                <span>
+                                    <lightning-formatted-number 
+                                        value={acc.AnnualRevenue} 
+                                        format-style="currency" 
+                                        currency-code="USD">
+                                    </lightning-formatted-number>
+                                </span>
+                            </div>
+                        </li>
+                    </template>
+                </ul>
+            </template>
+
+            <!-- Conditional rendering: Shows only if an error occurs -->
+            <template if:true={error}>
+                <div class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_error" role="alert">
+                    <span>Error loading data. Please check your permissions or network.</span>
+                </div>
+            </template>
+            
+        </div>
+    </lightning-card>
+</template>

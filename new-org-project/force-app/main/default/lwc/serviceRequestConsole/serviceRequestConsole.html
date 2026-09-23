@@ -1,0 +1,178 @@
+<template>
+
+    <lightning-card title="Service Request Console">
+
+        <!-- Create Case Button -->
+        <div class="slds-m-around_small slds-text-align_right">
+
+            <lightning-button
+                label="Create Case"
+                variant="brand"
+                onclick={handleCreateCase}>
+            </lightning-button>
+
+        </div>
+
+
+        <!-- Search -->
+        <lightning-input
+            type="search"
+            label="Search Service Requests"
+            placeholder="Search by Case Number or Subject"
+            value={searchKey}
+            onchange={handleSearch}>
+        </lightning-input>
+
+
+        <!-- Status Filter -->
+        <lightning-combobox
+            label="Status"
+            value={selectedStatus}
+            options={statusOptions}
+            onchange={handleStatusChange}>
+        </lightning-combobox>
+
+         <!-- Status Filter -->
+        <!-- Priority Filter -->
+        <lightning-combobox
+          label="Priority"
+          value={selectedPriority}
+          options={priorityOptions}
+          onchange={handlePriorityChange}>
+        </lightning-combobox> 
+
+        <!-- Case Data -->
+         <lightning-layout>
+            <lightning-datatable
+            key-field="Id"
+            data={visibleRecords}
+            columns={columns}
+            hide-checkbox-column class="slds-m-top_x-small">
+        </lightning-datatable>
+         </lightning-layout>
+        
+
+
+        <!-- Pagination -->
+        <div class="slds-m-around_small slds-align_absolute-center">
+
+            <lightning-button
+                label="Previous"
+                onclick={handlePrevious}
+                disabled={disablePrevious}>
+            </lightning-button>
+
+            <span class="slds-m-horizontal_small">
+                Page {currentPage} of {totalPages}
+            </span>
+
+            <lightning-button
+                label="Next"
+                onclick={handleNext}
+                disabled={disableNext}
+                class="slds-m-left_small">
+            </lightning-button>
+
+        </div>
+
+
+        <!-- Create Case Modal -->
+        <template if:true={showCreateCase}>
+
+            <div
+                class="slds-modal slds-fade-in-open"
+                role="dialog"
+                aria-modal="true"
+                aria-labelledby="modal-heading">
+
+                <div class="slds-modal__container">
+
+                    <!-- Modal Header -->
+                    <header class="slds-modal__header">
+
+                        <h2
+                            id="modal-heading"
+                            class="slds-text-heading_medium">
+
+                            Create New Case
+
+                        </h2>
+
+                    </header>
+
+
+                    <!-- Modal Body -->
+                    <div class="slds-modal__content slds-p-around_medium">
+
+                        <lightning-record-edit-form
+                            object-api-name="Case"
+                            onsuccess={handleCaseCreated}>
+
+                            <lightning-messages>
+                            </lightning-messages>
+
+
+                            <!-- Subject -->
+                            <lightning-input-field
+                                field-name="Subject">
+                            </lightning-input-field>
+
+
+                            <!-- Status -->
+                            <lightning-input-field
+                                field-name="Status">
+                            </lightning-input-field>
+
+
+                            <!-- Priority -->
+                            <lightning-input-field
+                                field-name="Priority">
+                            </lightning-input-field>
+
+
+                            <!-- Origin -->
+                            <lightning-input-field
+                                field-name="Origin">
+                            </lightning-input-field>
+
+
+                            <!-- Description -->
+                            <lightning-input-field
+                                field-name="Description">
+                            </lightning-input-field>
+
+
+                            <!-- Modal Buttons -->
+                            <div class="slds-m-top_medium slds-text-align_right">
+
+                                <lightning-button
+                                    label="Cancel"
+                                    onclick={handleCancel}>
+                                </lightning-button>
+
+                                <lightning-button
+                                    class="slds-m-left_small"
+                                    type="submit"
+                                    label="Create Case"
+                                    variant="brand">
+                                </lightning-button>
+
+                            </div>
+
+                        </lightning-record-edit-form>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Modal Backdrop -->
+            <div class="slds-backdrop slds-backdrop_open"></div>
+
+        </template>
+
+    </lightning-card>
+
+</template>

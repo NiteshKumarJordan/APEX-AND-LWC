@@ -1,0 +1,19 @@
+<template>
+    <lightning-card title="Active Opportunities" class="slds-var-m-top_medium">
+        <div class="slds-var-p-around_medium">
+            <template if:true={isLoading}>
+                <p>Loading opportunities...</p>
+            </template>
+
+            <template if:false={isLoading}>
+                <lightning-datatable
+                    key-field="Id"
+                    data={opportunities}
+                    columns={columns}
+                    hide-checkbox-column
+                    onrowaction={handleRowAction}>
+                </lightning-datatable>
+            </template>
+        </div>
+    </lightning-card>
+</template>

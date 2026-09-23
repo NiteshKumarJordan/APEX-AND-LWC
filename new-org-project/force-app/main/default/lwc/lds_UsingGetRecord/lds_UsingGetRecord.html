@@ -1,0 +1,20 @@
+<template>
+    <lightning-card title="LDS Using GetMethod and Get values">
+        <!-- Only render once data has loaded from the wire adapter -->
+        <template lwc:if={opptyVar.data}>
+            <div class="slds-m-around_medium">
+                <p>AccountId = {accountId}</p>
+                <p>Name = {name}</p>
+                <p>StageName = {stageName}</p>
+                <p>Amount = {amount}</p>
+            </div>
+        </template>
+        
+        <!-- Optional: Show an error if something goes wrong -->
+        <template lwc:else-if={opptyVar.error}>
+            <div class="slds-text-color_error">
+                Error loading data.
+            </div>
+        </template>
+    </lightning-card>
+</template>
